@@ -1,0 +1,8 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'Syne-Bold';
+  src: url('/Fonts/TTF/Syne-Bold.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}

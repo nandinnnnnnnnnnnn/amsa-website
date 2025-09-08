@@ -1,17 +1,19 @@
 /** @type {import('tailwindcss').Config} */
-export default {
+module.exports = {
   content: [
     "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}", 
+    "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {
-      fontFamily: {
-        inter: ['Inter', 'sans-serif'],
-      },
       colors: {
         primary: '#F6CA27',
         dark: '#0F172A',
+      },
+      fontFamily: {
+        inter: ['Inter', 'sans-serif'],
+        syne: ["'Syne-Bold'", 'sans-serif'],
+        poppins: ['Poppins', 'sans-serif'],
       },
     },
   },

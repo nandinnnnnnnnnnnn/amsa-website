@@ -1,5 +1,7 @@
-import React from "react";
-import "./ProgramsPage.css";
+import React, { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
+
 import imgAGM from "/assets/Hero-alt1.png";
 import imgCYF from "/assets/programs/CYF.png";
 import imgGlobalMind from "/assets/programs/GlobalMind.png";
@@ -36,8 +38,7 @@ const programs = [
     title: "Temege Campaign",
     short: "Temege",
     image: imgTemege,
-    description: `Since 2011, the Association of Mongolian Students in America has been organizing the “Best University Opportunity Program - BUOP” to reach and share our success stories with students in Mongolia. We are aware of how some people think only the wealthy go to the U.S for college, and we do not deny it as a misconception, either. This is why we are doing this fundraising campaign: to raise funds, helping underprivileged children fulfill their dreams and study at top universities in the US. Your support will help us lower the price of the tax to host more inclusive events open to the general public.'
-`,
+    description: `Since 2011, the Association of Mongolian Students in America has been organizing the “Best University Opportunity Program - BUOP” to reach and share our success stories with students in Mongolia. We are aware of how some people think only the wealthy go to the U.S for college, and we do not deny it as a misconception, either. This is why we are doing this fundraising campaign: to raise funds, helping underprivileged children fulfill their dreams and study at top universities in the US. Your support will help us lower the price of the tax to host more inclusive events open to the general public.`,
   },
   {
     title: "Curiosity Corner",
@@ -48,28 +49,40 @@ const programs = [
 ];
 
 export default function ProgramsPage() {
+  useEffect(() => {
+    AOS.init({ duration: 800, once: true });
+  }, []);
+
   return (
-    <section className="programs-page">
-      <h2 className="header">
+    <section className="py-16 px-4 bg-[#FFFCF3] text-center font-poppins">
+      <h2 className="text-2xl md:text-3xl font-['Syne-Bold'] text-[#001A78] mb-12 leading-relaxed">
         Since 2011, we’ve contributed to many impactful projects. <br />
-        Our core initiatives include<span className="highlight">AGM</span>,<span className="highlight">BUOP</span>, and<span className="highlight">CYF</span>.
+        Our core initiatives include
+        <span className="text-[#D62828] mx-1">AGM</span>,
+        <span className="text-[#D62828] mx-1">BUOP</span>, and
+        <span className="text-[#D62828] mx-1">CYF</span>.
       </h2>
 
-      <div className="programs-list">
+      <div className="flex flex-col gap-12 max-w-5xl mx-auto">
         {programs.map((program, index) => (
-            <div key={index} className="program-row fade-up">
-            <img src={program.image} alt={program.title} className="program-image" />
-            <div className="program-text">
-                <h3>{program.title}</h3>
-                <hr/>
-                <p>{program.description}</p>
+          <div
+            key={index}
+            data-aos="fade-up"
+            className="flex flex-col md:flex-row items-center gap-6 bg-white p-6 rounded-2xl shadow-md hover:bg-[#e7f1ff] transition duration-300"
+          >
+            <img
+              src={program.image}
+              alt={program.title}
+              className="w-full md:w-[300px] rounded-xl object-cover"
+            />
+            <div className="text-left md:text-left flex-1">
+              <h3 className="text-xl font-['Syne-Bold'] text-[#001A78] mb-2">{program.title}</h3>
+              <hr className="border-t border-[#001A78] mb-3 w-12" />
+              <p className="text-[#333] text-sm leading-relaxed">{program.description}</p>
             </div>
-            </div>
+          </div>
         ))}
-        </div>
-
+      </div>
     </section>
   );
 }
-
-// Removed duplicate export default statement

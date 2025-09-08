@@ -1,20 +1,15 @@
-import express from 'express';
-import mongoose from 'mongoose';
-import cors from 'cors';
-import dotenv from 'dotenv';
+import sequelize from './config/database.js';
+import express from "express";
+import userRoutes from "./routes/user.js";
 
-dotenv.config();
-const PORT = process.env.PORT || 5000;
+sequelize.authenticate()
+  .then(() => {
+    console.log('Database connected!');
+  })
+  .catch((err) => {
+    console.error('Database connection error:', err);
+  });
+  
+ const app = express();
+ 
 
-const app = express();
-app.use(cors());
-app.use(express.json());
-
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-}).then(() => console.log('MongoDB Connected'));
-
-app.get('/', (req, res) => res.send('API Running'));
-
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
