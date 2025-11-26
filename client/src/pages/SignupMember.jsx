@@ -46,16 +46,16 @@ const SignupMember = () => {
     setLoading(true);
 
     try {
-      // For now backend only accepts: email, password, firstName, lastName
       await signup({
-        email: formData.eduEmail,
+        eduEmail: formData.eduEmail,
+        personalEmail: formData.personalEmail,
         password: formData.password,
         firstName: formData.firstName,
         lastName: formData.lastName,
       });
 
-      // Later we can POST the rest to /profile
-      nav("/welcome");
+
+      nav("/");
     } catch (err) {
       setError(err?.message || "Registration failed");
     } finally {
@@ -90,7 +90,7 @@ const SignupMember = () => {
             <input
               type="email"
               name="eduEmail"
-              placeholder="Educational Email"
+              placeholder="Edu email / AMSA email"
               onChange={handleChange}
               className="input"
               required
