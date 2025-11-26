@@ -7,6 +7,10 @@ import HomePage from "./pages/HomePage";
 import ProgramsPage from "./pages/ProgramsPage";
 import BlogsPage from "./pages/BlogsPage";
 import SignupMember from "./pages/SignupMember";
+import LoginPage from "./pages/LoginPage";
+import WelcomePage from "./pages/WelcomePage";
+import AdminPage from "./pages/AdminPage";
+import UnauthorizedPage from "./pages/UnauthorizedPage";
 
 function App() {
   return (
@@ -17,6 +21,10 @@ function App() {
         <Route path="/programs" element={<ProgramsPage />} />
         <Route path="/blog" element={<BlogsPage />} />
         <Route path="/signup/member" element={<SignupMember />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/welcome" element={<WelcomePage />} />
+        <Route path="/admin" element={<AdminPage />} />
+        <Route path="/unauthorized" element={<UnauthorizedPage />} />
       </Routes>
       <Footer />
     </Router>

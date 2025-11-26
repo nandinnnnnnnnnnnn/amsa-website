@@ -9,7 +9,7 @@ const ctas = [
     icon: faUserPlus,
     label: "Become a member",
     action: "Register to AMSA!",
-    link: "/join",
+    link: "/signup/member",
   },
   {
     icon: faEnvelope,

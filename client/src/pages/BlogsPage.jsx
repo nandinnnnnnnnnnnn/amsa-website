@@ -1,31 +1,23 @@
-import React, { useState } from "react";
-import blog1 from "/assets/Hero-background.png";
-import blog2 from "/assets/Hero-background.png";
-import blog3 from "/assets/Hero-background.png";
-
-const blogs = [
-  {
-    title: "Journey to the U.S. – My College Story",
-    image: blog1,
-    preview: "Applying to college abroad was never easy, but I found strength in unexpected places...",
-    full: "Applying to college abroad was never easy, but I found strength in unexpected places. I’ll take you through my decision-making, how I chose my major, and how AMSA helped me stay confident even in rejection.",
-  },
-  {
-    title: "Interview Tips & Timeline",
-    image: blog2,
-    preview: "From application to acceptance: here's how I prepared for my college interview...",
-    full: "From application to acceptance: here's how I prepared for my college interview. I'll share my prep strategy, the kinds of questions I faced, and tips I wish I knew earlier!",
-  },
-  {
-    title: "What AMSA Meant to Me",
-    image: blog3,
-    preview: "Joining AMSA wasn't just a decision, it was a turning point...",
-    full: "Joining AMSA wasn't just a decision, it was a turning point. I made lifelong friends, gained leadership experience, and found a home away from home. Here’s what you should know before joining.",
-  },
-];
+import React, { useEffect, useState } from "react";
+import { api } from "../lib/api";
 
 export default function BlogsPage() {
+  const [blogs, setBlogs] = useState([]);
   const [expanded, setExpanded] = useState(null);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const load = async () => {
+      try {
+        setError("");
+        const { blogs } = await api("/api/blogs");
+        setBlogs(blogs || []);
+      } catch (e) {
+        setError(e?.message || "Failed to load blogs");
+      }
+    };
+    load();
+  }, []);
 
   return (
     <section className="bg-[#FFFCF3] py-16 px-4 font-poppins">
@@ -35,17 +27,19 @@ export default function BlogsPage() {
         <span className="text-[#FFCA3A]">Stories</span>
       </h2>
 
+      {error && <p className="text-red-600 text-center mb-4 text-sm">{error}</p>}
+
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center">
         {blogs.map((blog, index) => (
           <div
-            key={index}
+            key={blog.id || index}
             className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transform transition duration-300 hover:-translate-y-1 max-w-full w-full sm:w-[300px] flex flex-col cursor-pointer animate-fade-up"
           >
-            <img src={blog.image} alt={blog.title} className="w-full h-[200px] object-cover" />
+            <img src={blog.coverImageUrl || "/assets/Hero-background.png"} alt={blog.title} className="w-full h-[200px] object-cover" />
             <div className="p-5 flex flex-col flex-grow">
               <h3 className="text-lg font-['Syne-Bold'] text-[#001A78] mb-2">{blog.title}</h3>
               <p className="text-sm text-[#333] leading-relaxed flex-grow">
-                {expanded === index ? blog.full : blog.preview}
+                {expanded === index ? blog.content : blog.content?.slice(0, 180) + (blog.content?.length > 180 ? "..." : "")}
               </p>
               <button
                 onClick={() => setExpanded(expanded === index ? null : index)}
@@ -56,6 +50,9 @@ export default function BlogsPage() {
             </div>
           </div>
         ))}
+        {blogs.length === 0 && !error && (
+          <p className="text-sm text-gray-600 text-center col-span-full">No blogs yet.</p>
+        )}
       </div>
     </section>
   );

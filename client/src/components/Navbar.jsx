@@ -45,9 +45,20 @@ export default function Navbar() {
               {name}
             </Link>
           ))}
-          <Link to="/signup/member" className="bg-[#FFFCF3] border-2 border-[#001A78] text-[#171414] px-6 py-2 rounded-md font-semibold hover:bg-[#f4b825] transition">
-            Become a Member / Login
-          </Link>
+          <div className="flex flex-col md:flex-row gap-3">
+            <Link
+              to="/signup/member"
+              className="bg-[#FFFCF3] border-2 border-[#001A78] text-[#171414] px-6 py-2 rounded-md font-semibold hover:bg-[#f4b825] transition text-center"
+            >
+              Become a Member
+            </Link>
+            <Link
+              to="/login"
+              className="border-2 border-[#001A78] text-[#001A78] px-6 py-2 rounded-md font-semibold hover:bg-[#001A78] hover:text-white transition text-center"
+            >
+              Login
+            </Link>
+          </div>
         </nav>
       </div>
     </header>
