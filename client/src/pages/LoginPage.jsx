@@ -30,7 +30,7 @@ const LoginPage = () => {
 
   return (
     <div className="max-w-md mx-auto p-8 bg-white shadow-lg rounded-lg my-10">
-      <h2 className="text-3xl font-bold text-center text-[#001A78] mb-6">Login</h2>
+      <h2 className="text-3xl font-bold text-center text-[#001A78] mb-6">Admin Login</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         {error && <p className="text-red-600 text-sm">{error}</p>}
         <div>
@@ -42,7 +42,7 @@ const LoginPage = () => {
             value={form.email}
             onChange={handleChange}
             required
-            placeholder="your@email.com"
+            placeholder="your@amsa.com"
           />
         </div>
         <div>
